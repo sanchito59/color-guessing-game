@@ -20,6 +20,7 @@ const MenuButton = styled.button`
   :hover {
     background: grey;
     color: white;
+    cursor: pointer;
   }
 `;
 
@@ -37,14 +38,24 @@ const Message = styled.span`
   width: 20%;
   padding: 8px 0px;
   text-align: center;
+  letter-spacing: 1.5px;
+  color: grey;
 `;
 
 const Homepage = () => {
   const [difficulty, setDifficulty] = useState(6);
-  const [colors, setColors] = useState([]);
-  const [pickedColor, setPickedColor] = useState("rgb(91, 237, 240)");
+  const [colors, setColors] = useState([
+    "rgb(91, 099, 77)",
+    "rgb(200, 88, 111)",
+    "rgb(90, 90, 88)",
+    "rgb(100, 110, 120)",
+    "rgb(91, 200, 105)",
+    "rgb(8, 38, 240)",
+  ]);
+  const [pickedColor, setPickedColor] = useState("rgb(200, 88, 111)");
   const [correct, setCorrect] = useState(false);
   const [message, setMessage] = useState("");
+  const [playButtonMessage, setPlayButtonMessage] = useState("NEW COLORS");
 
   const init = () => {
     console.log("initialized");
@@ -55,7 +66,7 @@ const Homepage = () => {
     <>
       <Header pickedColor={pickedColor} correct={correct} />
       <MenuBar changeColors={setColors} changeDifficulty={setDifficulty}>
-        <MenuButton>NEW COLORS</MenuButton>
+        <MenuButton>{playButtonMessage}</MenuButton>
         <Message>{message}</Message>
         <DifficultyButton
           onClick={() => setDifficulty(3)}
@@ -79,7 +90,13 @@ const Homepage = () => {
           HARD
         </DifficultyButton>
       </MenuBar>
-      <Game />
+      <Game
+        pickedColor={pickedColor}
+        colors={colors}
+        handleCorrect={setCorrect}
+        handleMessage={setMessage}
+        handleButtonMessage={setPlayButtonMessage}
+      />
     </>
   );
 };
