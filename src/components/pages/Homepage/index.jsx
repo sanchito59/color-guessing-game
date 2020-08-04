@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
 import Game from "./components/Game";
@@ -15,6 +15,7 @@ const MenuButton = styled.button`
   letter-spacing: 1.5px;
   background: white;
   color: grey;
+  outline: none;
 
   transition: background 0.3s, color 0.3s;
   :hover {
@@ -44,8 +45,8 @@ const Message = styled.span`
 
 const Homepage = () => {
   const [difficulty, setDifficulty] = useState(6);
-  const [colors, setColors] = useState([
-    "rgb(91, 099, 77)",
+  const [gameColors, setGameColors] = useState([
+    "rgb(91, 99, 77)",
     "rgb(200, 88, 111)",
     "rgb(90, 90, 88)",
     "rgb(100, 110, 120)",
@@ -57,16 +58,47 @@ const Homepage = () => {
   const [message, setMessage] = useState("");
   const [playButtonMessage, setPlayButtonMessage] = useState("NEW COLORS");
 
-  const init = () => {
-    console.log("initialized");
+  const randomColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
   };
-  init();
+
+  const generateRandomColors = (num) => {
+    let colors = [];
+    for (let i = 0; i < num; i++) {
+      colors.push(randomColor());
+    }
+    return colors;
+  };
+
+  const pickColor = () => {
+    const randomIndex = Math.floor(Math.random() * gameColors.length);
+    return gameColors[randomIndex];
+  };
+
+  const resetGame = () => {
+    setGameColors(generateRandomColors(difficulty));
+    setPickedColor(pickColor());
+    setPlayButtonMessage("NEW COLORS");
+    setMessage("");
+  };
+
+  const init = () => {
+    setGameColors(generateRandomColors(difficulty));
+    setPickedColor(pickColor());
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <>
       <Header pickedColor={pickedColor} correct={correct} />
-      <MenuBar changeColors={setColors} changeDifficulty={setDifficulty}>
-        <MenuButton>{playButtonMessage}</MenuButton>
+      <MenuBar changeColors={setGameColors} changeDifficulty={setDifficulty}>
+        <MenuButton onClick={() => resetGame()}>{playButtonMessage}</MenuButton>
         <Message>{message}</Message>
         <DifficultyButton
           onClick={() => setDifficulty(3)}
@@ -92,7 +124,7 @@ const Homepage = () => {
       </MenuBar>
       <Game
         pickedColor={pickedColor}
-        colors={colors}
+        colors={gameColors}
         handleCorrect={setCorrect}
         handleMessage={setMessage}
         handleButtonMessage={setPlayButtonMessage}

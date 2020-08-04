@@ -25,7 +25,6 @@ const ColorSquare = styled.div`
 
 const ColorBlock = ({ color, pickedColor, checkColor }) => {
   const [visible, setVisibility] = useState("visible");
-
   return (
     <ColorSquare
       color={color}
