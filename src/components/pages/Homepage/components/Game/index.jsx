@@ -46,7 +46,12 @@ const Game = ({
       handleCorrect(true);
       handleMessage("CORRECT!");
       handleButtonMessage("PLAY AGAIN?");
-      changeColors(correctColor);
+
+      let existing = localStorage.getItem("gamesWon").split(",");
+      console.log(existing);
+      existing.push("1");
+      localStorage.setItem("gamesWon", existing.toString());
+
       return "visible";
     } else {
       handleMessage("TRY AGAIN");
