@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const ColorSquare = styled.div`
@@ -25,6 +25,11 @@ const ColorSquare = styled.div`
 
 const ColorBlock = ({ color, pickedColor, checkColor }) => {
   const [visible, setVisibility] = useState("visible");
+
+  useEffect(() => {
+    setVisibility("visible");
+  }, [color]);
+
   return (
     <ColorSquare
       color={color}

@@ -70,29 +70,31 @@ const Homepage = () => {
     for (let i = 0; i < num; i++) {
       colors.push(randomColor());
     }
+
+    const randomIndex = Math.floor(Math.random() * gameColors.length);
+    setPickedColor(colors[randomIndex]);
+
     return colors;
   };
 
-  const pickColor = () => {
-    const randomIndex = Math.floor(Math.random() * gameColors.length);
-    return gameColors[randomIndex];
-  };
-
   const resetGame = () => {
+    setCorrect(false);
     setGameColors(generateRandomColors(difficulty));
-    setPickedColor(pickColor());
     setPlayButtonMessage("NEW COLORS");
     setMessage("");
   };
 
   const init = () => {
     setGameColors(generateRandomColors(difficulty));
-    setPickedColor(pickColor());
   };
 
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    resetGame();
+  }, [difficulty]);
 
   return (
     <>
@@ -125,6 +127,8 @@ const Homepage = () => {
       <Game
         pickedColor={pickedColor}
         colors={gameColors}
+        difficulty={difficulty}
+        handleGameColors={setGameColors}
         handleCorrect={setCorrect}
         handleMessage={setMessage}
         handleButtonMessage={setPlayButtonMessage}

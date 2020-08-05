@@ -24,16 +24,28 @@ const ColorGrid = styled.div`
 
 const Game = ({
   colors,
+  difficulty,
   pickedColor,
   handleCorrect,
+  handleGameColors,
   handleMessage,
   handleButtonMessage,
 }) => {
+  const changeColors = (color) => {
+    colors = [];
+    for (let i = 0; i < difficulty; i++) {
+      colors.push(color);
+    }
+    handleGameColors(colors);
+  };
+
   const checkColor = (divColor, correctColor) => {
     if (divColor === correctColor) {
+      changeColors(correctColor);
       handleCorrect(true);
       handleMessage("CORRECT!");
       handleButtonMessage("PLAY AGAIN?");
+      changeColors(correctColor);
       return "visible";
     } else {
       handleMessage("TRY AGAIN");
