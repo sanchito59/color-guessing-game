@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ColorSquare = styled.div`
@@ -37,6 +38,12 @@ const ColorBlock = ({ color, pickedColor, checkColor }) => {
       onClick={() => setVisibility(checkColor(color, pickedColor))}
     />
   );
+};
+
+ColorBlock.propTypes = {
+  color: PropTypes.string,
+  pickedColor: PropTypes.string,
+  checkColor: PropTypes.func,
 };
 
 export default ColorBlock;

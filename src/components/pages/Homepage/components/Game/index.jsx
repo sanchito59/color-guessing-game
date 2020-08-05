@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ColorBlock from "./components/ColorBlock";
 import styled from "styled-components";
 
@@ -69,6 +70,16 @@ const Game = ({
       </ColorGrid>
     </GameSection>
   );
+};
+
+Game.propTypes = {
+  colors: PropTypes.array,
+  difficulty: PropTypes.number,
+  pickedColor: PropTypes.string,
+  handleCorrect: PropTypes.func,
+  handleGameColors: PropTypes.func,
+  handleMessage: PropTypes.func,
+  handleButtonMessage: PropTypes.func,
 };
 
 export default Game;

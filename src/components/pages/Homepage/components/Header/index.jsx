@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ContentHeader = styled.header`
@@ -21,6 +22,11 @@ const Header = ({ correct, pickedColor }) => {
       </div>
     </ContentHeader>
   );
+};
+
+Header.propTypes = {
+  correct: PropTypes.bool,
+  pickedColor: PropTypes.string,
 };
 
 export default Header;
