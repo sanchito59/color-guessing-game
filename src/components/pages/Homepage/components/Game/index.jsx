@@ -7,7 +7,12 @@ const GameSection = styled.section`
   padding: 64px 0px;
   display: flex;
   justify-content: center;
-  background: rgb(74, 75, 77);
+  background: rgb(22, 20, 68);
+  background: linear-gradient(
+    90deg,
+    rgba(22, 20, 68, 1) 0%,
+    rgba(32, 32, 72, 1) 100%
+  );
 
   @media (max-width: 767px) {
     padding: 32px 0px;
@@ -25,6 +30,7 @@ const ColorGrid = styled.div`
 
 const Game = ({
   colors,
+  correct,
   difficulty,
   pickedColor,
   handleCorrect,
@@ -48,7 +54,6 @@ const Game = ({
       handleButtonMessage("PLAY AGAIN?");
 
       let existing = localStorage.getItem("gamesWon").split(",");
-      console.log(existing);
       existing.push("1");
       localStorage.setItem("gamesWon", existing.toString());
 
@@ -67,6 +72,7 @@ const Game = ({
             <ColorBlock
               key={index}
               color={color}
+              correct={correct}
               pickedColor={pickedColor}
               checkColor={checkColor}
             />

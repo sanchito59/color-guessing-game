@@ -132,6 +132,7 @@ const Homepage = () => {
         pickedColor={pickedColor}
         colors={gameColors}
         difficulty={difficulty}
+        correct={correct}
         handleGameColors={setGameColors}
         handleCorrect={setCorrect}
         handleMessage={setMessage}
