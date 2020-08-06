@@ -35,6 +35,7 @@ Color Guessing Game is a game about testing your knowledge of RGB color values. 
 
 ## Technologies 
 
+* Framer Motion
 * JavaScript
 * React.js
 * localStorage

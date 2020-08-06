@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
 import Game from "./components/Game";
+import Scoreboard from "./components/Scoreboard";
 
 const MenuBar = styled.section`
   display: flex;
@@ -86,6 +87,9 @@ const Homepage = () => {
 
   const init = () => {
     setGameColors(generateRandomColors(difficulty));
+    let existing = localStorage.getItem("gamesWon");
+    existing = existing ? existing.split(",") : [];
+    localStorage.setItem("gamesWon", existing.toString());
   };
 
   useEffect(() => {
@@ -128,11 +132,13 @@ const Homepage = () => {
         pickedColor={pickedColor}
         colors={gameColors}
         difficulty={difficulty}
+        correct={correct}
         handleGameColors={setGameColors}
         handleCorrect={setCorrect}
         handleMessage={setMessage}
         handleButtonMessage={setPlayButtonMessage}
       />
+      <Scoreboard correct={correct} />
     </>
   );
 };
