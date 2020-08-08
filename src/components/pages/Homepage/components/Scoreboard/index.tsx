@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+
+type Props = {
+  correct: Boolean;
+};
 
 const ScoreboardContainer = styled.section`
   background: rgb(22, 20, 68);
@@ -30,19 +33,30 @@ const ScoreboardTitle = styled.h1`
   -webkit-text-fill-color: transparent;
 `;
 
-const Scoreboard = ({ correct }) => {
-  const [gamesWon, setGamesWon] = useState(
-    localStorage.getItem("gamesWon") != null
-      ? localStorage.getItem("gamesWon").split(",").length - 1
-      : 0
-  );
+const Scoreboard = ({ correct }: Props) => {
+  const [gamesWon, setGamesWon] = useState(0);
 
   useEffect(() => {
     if (correct === true) {
-      let wins = localStorage.getItem("gamesWon");
-      setGamesWon(wins.split(",").length - 1);
+      let wins: string[] = [];
+      if (localStorage.getItem("gamesWon") != null) {
+        wins = localStorage.getItem("gamesWon")?.split(",")!;
+      }
+      setGamesWon(wins.length - 1);
     }
   }, [correct]);
+
+  const init = () => {
+    let wins: string[] = [];
+    if (localStorage.getItem("gamesWon") != null) {
+      wins = localStorage.getItem("gamesWon")?.split(",")!;
+    }
+    setGamesWon(wins.length === 0 ? 0 : wins.length - 1);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <ScoreboardContainer>
@@ -50,10 +64,6 @@ const Scoreboard = ({ correct }) => {
       <ScoreboardTitle>Games Won: {gamesWon}</ScoreboardTitle>
     </ScoreboardContainer>
   );
-};
-
-Scoreboard.propTypes = {
-  correct: PropTypes.bool,
 };
 
 export default Scoreboard;
