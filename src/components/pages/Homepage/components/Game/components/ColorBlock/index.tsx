@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const MotionBlock = styled(motion.div)`
+type Props = {
+  color: string;
+  correct: Boolean;
+  pickedColor: string;
+  checkColor: Function;
+  visible: string;
+};
+
+const MotionBlock = styled(motion.div)<{ visible: string }>`
   border: 4px solid white;
   width: 175px;
   height: 175px;
@@ -25,7 +32,12 @@ const MotionBlock = styled(motion.div)`
   }
 `;
 
-const ColorBlock = ({ color, correct, pickedColor, checkColor }) => {
+const ColorBlock: React.FC<Props> = ({
+  color,
+  correct,
+  pickedColor,
+  checkColor,
+}: Props) => {
   const [visible, setVisibility] = useState("visible");
 
   useEffect(() => {
@@ -42,12 +54,6 @@ const ColorBlock = ({ color, correct, pickedColor, checkColor }) => {
       onClick={() => !correct && setVisibility(checkColor(color, pickedColor))}
     />
   );
-};
-
-ColorBlock.propTypes = {
-  color: PropTypes.string,
-  pickedColor: PropTypes.string,
-  checkColor: PropTypes.func,
 };
 
 export default ColorBlock;
