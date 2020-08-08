@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import Header from "./components/Header";
 import Game from "./components/Game";
 import Scoreboard from "./components/Scoreboard";
@@ -7,21 +8,31 @@ import Scoreboard from "./components/Scoreboard";
 const MenuBar = styled.section`
   display: flex;
   justify-content: center;
+  background: rgb(22, 20, 68);
+  background: linear-gradient(
+    90deg,
+    rgba(22, 20, 68, 1) 0%,
+    rgba(32, 32, 72, 1) 100%
+  );
+  height: 40px;
+  font-family: "Dosis", sans-serif;
 `;
 
-const MenuButton = styled.button`
+const MenuButton = styled(motion.button)`
+  font-family: "Dosis", sans-serif;
   border: 0px;
   padding-top: 8px;
   padding-bottom: 8px;
   letter-spacing: 1.5px;
-  background: white;
-  color: grey;
+  background: rgba(0, 0, 0, 0);
+  color: white;
   outline: none;
+  font-weight: 600;
 
   transition: background 0.3s, color 0.3s;
   :hover {
-    background: grey;
-    color: white;
+    color: rgb(22, 20, 68);
+    background: white;
     cursor: pointer;
   }
 `;
@@ -30,18 +41,20 @@ const DifficultyButton = styled(MenuButton)`
   margin: 0px 4px;
 
   background: ${(props) =>
-    props.buttonDifficulty === props.gameDifficulty ? "grey" : "white"};
+    props.buttonDifficulty === props.gameDifficulty && "white"};
 
   color: ${(props) =>
-    props.buttonDifficulty === props.gameDifficulty ? "white" : "grey"};
+    props.buttonDifficulty === props.gameDifficulty
+      ? "rgb(22, 20, 68)"
+      : "white"};
 `;
 
 const Message = styled.span`
-  width: 20%;
+  width: 30%;
   padding: 8px 0px;
   text-align: center;
   letter-spacing: 1.5px;
-  color: grey;
+  color: white;
 `;
 
 const Homepage = () => {
@@ -72,7 +85,7 @@ const Homepage = () => {
       colors.push(randomColor());
     }
 
-    const randomIndex = Math.floor(Math.random() * gameColors.length);
+    const randomIndex = Math.floor(Math.random() * colors.length);
     setPickedColor(colors[randomIndex]);
 
     return colors;
@@ -100,33 +113,47 @@ const Homepage = () => {
     resetGame();
   }, [difficulty]);
 
+  const difficultyButtons = [
+    {
+      difficulty: 3,
+      text: "EASY",
+    },
+    {
+      difficulty: 6,
+      text: "MEDIUM",
+    },
+    {
+      difficulty: 9,
+      text: "HARD",
+    },
+  ];
+
   return (
     <>
       <Header pickedColor={pickedColor} correct={correct} />
-      <MenuBar changeColors={setGameColors} changeDifficulty={setDifficulty}>
-        <MenuButton onClick={() => resetGame()}>{playButtonMessage}</MenuButton>
+      <MenuBar>
+        <MenuButton
+          onClick={() => resetGame()}
+          whileHover={{ scale: 1.1, transition: { duration: 0.75 } }}
+          whileTap={{ scale: 1 }}
+        >
+          {playButtonMessage}
+        </MenuButton>
         <Message>{message}</Message>
-        <DifficultyButton
-          onClick={() => setDifficulty(3)}
-          buttonDifficulty={3}
-          gameDifficulty={difficulty}
-        >
-          EASY
-        </DifficultyButton>
-        <DifficultyButton
-          onClick={() => setDifficulty(6)}
-          buttonDifficulty={6}
-          gameDifficulty={difficulty}
-        >
-          MEDIUM
-        </DifficultyButton>
-        <DifficultyButton
-          onClick={() => setDifficulty(9)}
-          buttonDifficulty={9}
-          gameDifficulty={difficulty}
-        >
-          HARD
-        </DifficultyButton>
+        {difficultyButtons.map((button) => {
+          return (
+            <DifficultyButton
+              key={button.difficulty}
+              onClick={() => setDifficulty(button.difficulty)}
+              buttonDifficulty={button.difficulty}
+              gameDifficulty={difficulty}
+              whileHover={{ scale: 1.1, transition: { duration: 0.75 } }}
+              whileTap={{ scale: 1 }}
+            >
+              {button.text}
+            </DifficultyButton>
+          );
+        })}
       </MenuBar>
       <Game
         pickedColor={pickedColor}
