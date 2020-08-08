@@ -1,8 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const ContentHeader = styled.header`
+type Props = {
+  correct: Boolean;
+  pickedColor: string;
+};
+
+const ContentHeader = styled.header<Props>`
   display: flex;
   justify-content: center;
   text-align: center;
@@ -25,7 +29,7 @@ const PickedColor = styled.span`
   text-decoration: underline;
 `;
 
-const Header = ({ correct, pickedColor }) => {
+const Header: React.FC<Props> = ({ correct, pickedColor }: Props) => {
   return (
     <ContentHeader correct={correct} pickedColor={pickedColor}>
       <div>
@@ -36,11 +40,6 @@ const Header = ({ correct, pickedColor }) => {
       </div>
     </ContentHeader>
   );
-};
-
-Header.propTypes = {
-  correct: PropTypes.bool,
-  pickedColor: PropTypes.string,
 };
 
 export default Header;
