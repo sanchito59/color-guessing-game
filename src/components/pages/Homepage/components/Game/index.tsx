@@ -3,7 +3,6 @@ import ColorBlock from "./components/ColorBlock";
 import styled from "styled-components";
 
 type Props = {
-  color: string;
   colors: Array<string>;
   correct: Boolean;
   difficulty: number;

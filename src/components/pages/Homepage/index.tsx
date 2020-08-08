@@ -5,6 +5,11 @@ import Header from "./components/Header";
 import Game from "./components/Game";
 import Scoreboard from "./components/Scoreboard";
 
+type ButtonTypes = {
+  buttonDifficulty: number;
+  gameDifficulty: number;
+};
+
 const MenuBar = styled.section`
   display: flex;
   justify-content: center;
@@ -37,7 +42,7 @@ const MenuButton = styled(motion.button)`
   }
 `;
 
-const DifficultyButton = styled(MenuButton)`
+const DifficultyButton = styled(MenuButton)<ButtonTypes>`
   margin: 0px 4px;
 
   background: ${(props) =>
@@ -79,7 +84,7 @@ const Homepage = () => {
     return `rgb(${r}, ${g}, ${b})`;
   };
 
-  const generateRandomColors = (num) => {
+  const generateRandomColors = (num: number) => {
     let colors = [];
     for (let i = 0; i < num; i++) {
       colors.push(randomColor());
@@ -100,8 +105,11 @@ const Homepage = () => {
 
   const init = () => {
     setGameColors(generateRandomColors(difficulty));
-    let existing = localStorage.getItem("gamesWon");
-    existing = existing ? existing.split(",") : [];
+    let existing: string[] = [];
+
+    if (localStorage.getItem("gamesWon") != null) {
+      existing = localStorage.getItem("gamesWon")?.split(",")!;
+    }
     localStorage.setItem("gamesWon", existing.toString());
   };
 
