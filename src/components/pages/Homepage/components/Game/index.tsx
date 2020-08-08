@@ -1,7 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ColorBlock from "./components/ColorBlock";
 import styled from "styled-components";
+
+type Props = {
+  color: string;
+  colors: Array<string>;
+  correct: Boolean;
+  difficulty: number;
+  pickedColor: string;
+  handleCorrect: Function;
+  handleGameColors: Function;
+  handleMessage: Function;
+  handleButtonMessage: Function;
+};
 
 const GameSection = styled.section`
   padding: 64px 0px;
@@ -28,7 +39,7 @@ const ColorGrid = styled.div`
   }
 `;
 
-const Game = ({
+const Game: React.FC<Props> = ({
   colors,
   correct,
   difficulty,
@@ -37,8 +48,8 @@ const Game = ({
   handleGameColors,
   handleMessage,
   handleButtonMessage,
-}) => {
-  const changeColors = (color) => {
+}: Props) => {
+  const changeColors = (color: string) => {
     colors = [];
     for (let i = 0; i < difficulty; i++) {
       colors.push(color);
@@ -46,15 +57,19 @@ const Game = ({
     handleGameColors(colors);
   };
 
-  const checkColor = (divColor, correctColor) => {
+  const checkColor = (divColor: string, correctColor: string) => {
     if (divColor === correctColor) {
       changeColors(correctColor);
       handleCorrect(true);
       handleMessage("CORRECT!");
       handleButtonMessage("PLAY AGAIN?");
 
-      let existing = localStorage.getItem("gamesWon").split(",");
-      existing.push("1");
+      let existing: string[] = [];
+
+      if (localStorage.getItem("gamesWon") != null) {
+        existing = localStorage.getItem("gamesWon")?.split(",")!;
+        existing.push("1");
+      }
       localStorage.setItem("gamesWon", existing.toString());
 
       return "visible";
@@ -67,7 +82,7 @@ const Game = ({
   return (
     <GameSection>
       <ColorGrid>
-        {colors.map((color, index) => {
+        {colors.map((color: string, index: number) => {
           return (
             <ColorBlock
               key={index}
@@ -75,22 +90,13 @@ const Game = ({
               correct={correct}
               pickedColor={pickedColor}
               checkColor={checkColor}
+              visible={"visible"}
             />
           );
         })}
       </ColorGrid>
     </GameSection>
   );
-};
-
-Game.propTypes = {
-  colors: PropTypes.array,
-  difficulty: PropTypes.number,
-  pickedColor: PropTypes.string,
-  handleCorrect: PropTypes.func,
-  handleGameColors: PropTypes.func,
-  handleMessage: PropTypes.func,
-  handleButtonMessage: PropTypes.func,
 };
 
 export default Game;
