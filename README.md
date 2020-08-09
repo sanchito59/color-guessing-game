@@ -4,7 +4,7 @@
 
 ## [Live Demo](https://www.github.com/sanchito59)
 
-Color Guessing Game is a game about testing your knowledge of RGB color values. It is a rebuild of a previous project that consisted of just an index.html, styles.css, and script.js file from first learning to program. The intention of re-building the game was to explore TypeScript as well as using localStorage to persist information on the user's DOM.
+Color Guessing Game is a game about testing your knowledge of RGB color values. It is a complete rebuild of a previous project from when I was learning to program. The intention of re-building the game was to explore TypeScript as well as using localStorage to persist information on the browser Document.
 
 - - - 
 

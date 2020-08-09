@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
@@ -84,7 +84,7 @@ const Homepage = () => {
     return `rgb(${r}, ${g}, ${b})`;
   };
 
-  const generateRandomColors = (num: number) => {
+  const generateRandomColors = useCallback((num: number) => {
     let colors = [];
     for (let i = 0; i < num; i++) {
       colors.push(randomColor());
@@ -94,16 +94,16 @@ const Homepage = () => {
     setPickedColor(colors[randomIndex]);
 
     return colors;
-  };
+  }, []);
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setCorrect(false);
     setGameColors(generateRandomColors(difficulty));
     setPlayButtonMessage("NEW COLORS");
     setMessage("");
-  };
+  }, [generateRandomColors, difficulty]);
 
-  const init = () => {
+  const init = useCallback(() => {
     setGameColors(generateRandomColors(difficulty));
     let existing: string[] = [];
 
@@ -111,15 +111,15 @@ const Homepage = () => {
       existing = localStorage.getItem("gamesWon")?.split(",")!;
     }
     localStorage.setItem("gamesWon", existing.toString());
-  };
+  }, [generateRandomColors, difficulty]);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [init]);
 
   useEffect(() => {
     resetGame();
-  }, [difficulty]);
+  }, [resetGame, difficulty]);
 
   const difficultyButtons = [
     {
