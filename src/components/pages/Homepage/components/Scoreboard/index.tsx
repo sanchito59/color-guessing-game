@@ -6,6 +6,8 @@ type Props = {
 };
 
 const ScoreboardContainer = styled.section`
+  padding-bottom: 100px;
+
   background: rgb(22, 20, 68);
   background: linear-gradient(
     90deg,
@@ -20,7 +22,8 @@ const ScoreboardTitle = styled.h1`
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
-  padding: 24px 0px;
+  padding-top: 12px;
+  padding-bottom: 24px;
   background-image: linear-gradient(
     90deg,
     rgba(199, 0, 205, 1) 0%,

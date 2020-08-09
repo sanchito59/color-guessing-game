@@ -32,10 +32,6 @@ const GameSection = styled.section`
 const ColorGrid = styled.div`
   display: grid;
   grid-template-columns: 30% 30% 30%;
-
-  @media (max-width: 767px) {
-    grid-template-columns: 50% 50%;
-  }
 `;
 
 const Game: React.FC<Props> = ({

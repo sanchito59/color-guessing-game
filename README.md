@@ -1,10 +1,10 @@
-# [Color Guessing Game](https://www.github.com/sanchito59)
+# [Color Guessing Game](https://typescript-rgb-guessing.netlify.app/)
 
 ## By **Chris Sanchez**
 
-## [Live Demo](https://www.github.com/sanchito59)
+## [Live Demo](https://typescript-rgb-guessing.netlify.app/)
 
-Color Guessing Game is a game about testing your knowledge of RGB color values. It is a complete rebuild of a previous project from when I was learning to program. The intention of re-building the game was to explore TypeScript as well as using localStorage to persist information on the browser Document.
+Color Guessing Game is a game about testing your knowledge of RGB color values. It is a complete rebuild of a previous project that was written with just an index.html, stylesheet, and single JavaScript file. The intention of re-building the game was to explore TypeScript with React as well as using localStorage to persist information on the browser Document, both of which I had never explored before this project.
 
 - - - 
 
@@ -21,7 +21,7 @@ Color Guessing Game is a game about testing your knowledge of RGB color values. 
  4. Open directory contents by extracting/unzipping documents from folder.
  3. Make sure your system has `Node Package Manger (NPM)` installed.
  4. With `NPM` installed, run `npm install` or `npm i` .
- 5. After the app files have been installed/configured, run `npm start` . This will launch **[Color Guessing Game](https://www.github.com/sanchito59)** on `localhost:3000` in your default browser.
+ 5. After the app files have been installed/configured, run `npm start` . This will launch **[Color Guessing Game](https://typescript-rgb-guessing.netlify.app/)** on `localhost:3000` in your default browser.
 
 #### Clone:
 
@@ -29,7 +29,7 @@ Color Guessing Game is a game about testing your knowledge of RGB color values. 
  2. Once the repository finishes downloading you will need to navigate to it in the terminal/command line.
  3. Make sure your system has `Node Package Manger (NPM)` installed.
  4. With `NPM` installed, run `npm install` or `npm i` .
- 5. After the app files have been installed/configured, run `npm start` . This will launch **[Color Guessing Game](https://www.github.com/sanchito59)** on `localhost:3000` in your default browser.
+ 5. After the app files have been installed/configured, run `npm start` . This will launch **[Color Guessing Game](https://typescript-rgb-guessing.netlify.app/)** on `localhost:3000` in your default browser.
 
  - - -
 
@@ -73,7 +73,7 @@ Your app is ready to be deployed!
 
 ### Support and Contact
 
-If you run into any issues running **[Color Guessing Game](https://www.github.com/sanchito59)**, please contact **Chris Sanchez**.
+If you run into any issues running **[Color Guessing Game](https://typescript-rgb-guessing.netlify.app/)**, please contact **Chris Sanchez**.
 
 ### License
 
