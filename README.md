@@ -6,6 +6,8 @@
 
 Color Guessing Game is a game about testing your knowledge of RGB color values. It is a complete rebuild of a previous project that was written with just an index.html, stylesheet, and single JavaScript file. The intention of re-building the game was to explore TypeScript with React as well as using localStorage to persist information on the browser Document, both of which I had never explored before this project.
 
+![image of Color Guessing Game homepage](https://i.imgur.com/g7D5iqY.png?1 "read")
+
 - - - 
 
 ### Setup/Installation Requirements
