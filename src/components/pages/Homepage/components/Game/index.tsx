@@ -59,13 +59,26 @@ const Game: React.FC<Props> = ({
       handleMessage("CORRECT!");
       handleButtonMessage("PLAY AGAIN?");
 
-      let existing: string[] = [];
+      let gamesWonArr: string[] = [];
 
       if (localStorage.getItem("gamesWon") != null) {
-        existing = localStorage.getItem("gamesWon")?.split(",")!;
-        existing.push("1");
+        gamesWonArr = localStorage.getItem("gamesWon")?.split(",")!;
+        gamesWonArr.push("1");
       }
-      localStorage.setItem("gamesWon", existing.toString());
+      localStorage.setItem("gamesWon", gamesWonArr.toString());
+
+      let averageDifficultyArr: string[] = [];
+
+      if (localStorage.getItem("averageDifficulty") != null) {
+        averageDifficultyArr = localStorage
+          .getItem("averageDifficulty")
+          ?.split(",")!;
+        averageDifficultyArr.push(difficulty.toString());
+      }
+      localStorage.setItem(
+        "averageDifficulty",
+        averageDifficultyArr.toString()
+      );
 
       return "visible";
     } else {

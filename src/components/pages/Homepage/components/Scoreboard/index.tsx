@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -38,6 +38,7 @@ const ScoreboardTitle = styled.h1`
 
 const Scoreboard = ({ correct }: Props) => {
   const [gamesWon, setGamesWon] = useState(0);
+  const [averageDifficulty, setAverageDifficulty] = useState("6");
 
   useEffect(() => {
     if (correct === true) {
@@ -46,8 +47,26 @@ const Scoreboard = ({ correct }: Props) => {
         wins = localStorage.getItem("gamesWon")?.split(",")!;
       }
       setGamesWon(wins.length - 1);
+
+      let avgDifficulty: string[] = [];
+      if (localStorage.getItem("averageDifficulty") != null) {
+        avgDifficulty = localStorage.getItem("averageDifficulty")?.split(",")!;
+        const difficultyMode = mode(avgDifficulty);
+        if (difficultyMode) {
+          setAverageDifficulty(difficultyMode);
+        }
+      }
     }
   }, [correct]);
+
+  const mode = (arr: string[]) => {
+    return arr
+      .sort(
+        (a, b) =>
+          arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
+      )
+      .pop();
+  };
 
   const init = () => {
     let wins: string[] = [];
@@ -55,16 +74,40 @@ const Scoreboard = ({ correct }: Props) => {
       wins = localStorage.getItem("gamesWon")?.split(",")!;
     }
     setGamesWon(wins.length === 0 ? 0 : wins.length - 1);
+
+    let avgDifficulty: string[] = [];
+    if (localStorage.getItem("averageDifficulty") != null) {
+      avgDifficulty = localStorage.getItem("averageDifficulty")?.split(",")!;
+      const difficultyMode = mode(avgDifficulty);
+      if (difficultyMode) {
+        setAverageDifficulty(difficultyMode);
+      }
+    } else {
+      setAverageDifficulty(avgDifficulty.length.toString());
+    }
   };
 
   useEffect(() => {
     init();
   }, []);
 
+  const difficultyMap = useMemo(() => {
+    if (averageDifficulty === "3") {
+      return "Easy";
+    } else if (averageDifficulty === "6") {
+      return "Medium";
+    } else if (averageDifficulty === "9") {
+      return "Hard";
+    }
+  }, [correct, init]);
+
   return (
     <ScoreboardContainer>
       <ScoreboardTitle>SCOREBOARD</ScoreboardTitle>
       <ScoreboardTitle>Games Won: {gamesWon}</ScoreboardTitle>
+      <ScoreboardTitle>
+        Average Difficulty: {difficultyMap ? difficultyMap : "Medium"}
+      </ScoreboardTitle>
     </ScoreboardContainer>
   );
 };
