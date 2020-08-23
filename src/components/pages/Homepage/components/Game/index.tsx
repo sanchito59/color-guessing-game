@@ -15,6 +15,7 @@ type Props = {
 
 const GameSection = styled.section`
   padding: 64px 0px;
+  padding-bottom: 120px;
   display: flex;
   justify-content: center;
   background: rgb(22, 20, 68);
@@ -26,6 +27,7 @@ const GameSection = styled.section`
 
   @media (max-width: 767px) {
     padding: 32px 0px;
+    padding-bottom: 80px;
   }
 `;
 

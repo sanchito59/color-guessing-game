@@ -5,15 +5,29 @@ type Props = {
   correct: Boolean;
 };
 
-const ScoreboardContainer = styled.section`
-  padding-bottom: 100px;
-
+const PageBase = styled.section`
+  display: flex;
+  justify-content: center;
   background: rgb(22, 20, 68);
   background: linear-gradient(
     90deg,
     rgba(22, 20, 68, 1) 0%,
     rgba(32, 32, 72, 1) 100%
   );
+`;
+
+const ScoreboardContainer = styled.div`
+  font-family: "Dosis", sans-serif;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 100px;
+  width: 60%;
+
+  @media (max-height: 600px) {
+    width: 80%;
+  }
 `;
 
 const ScoreboardTitle = styled.h1`
@@ -34,6 +48,39 @@ const ScoreboardTitle = styled.h1`
   background-repeat: repeat;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+`;
+
+const FlexWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StatTitle = styled.p`
+  width: 70%;
+  font-size: 40px;
+  letter-spacing: 4px;
+  color: rgba(199, 0, 205, 1);
+  padding-left: 20px;
+  padding-bottom: 12px;
+  border-bottom: 4px solid black;
+  @media (max-height: 600px) {
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
+
+const StatValue = styled.p`
+  width: 30%;
+  font-size: 40px;
+  letter-spacing: 4px;
+  color: rgba(199, 0, 205, 1);
+  text-align: center;
+  border-left: 4px solid black;
+  border-bottom: 4px solid black;
+  @media (max-height: 600px) {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;
 
 const Scoreboard = ({ correct }: Props) => {
@@ -101,14 +148,31 @@ const Scoreboard = ({ correct }: Props) => {
     }
   }, [correct, init]);
 
+  const scoreBoardStats: object[] = [
+    {
+      title: "Games Won",
+      value: gamesWon,
+    },
+    {
+      title: "Favorite Difficulty",
+      value: difficultyMap ? difficultyMap : "Medium",
+    },
+  ];
+
   return (
-    <ScoreboardContainer>
-      <ScoreboardTitle>SCOREBOARD</ScoreboardTitle>
-      <ScoreboardTitle>Games Won: {gamesWon}</ScoreboardTitle>
-      <ScoreboardTitle>
-        Average Difficulty: {difficultyMap ? difficultyMap : "Medium"}
-      </ScoreboardTitle>
-    </ScoreboardContainer>
+    <PageBase>
+      <ScoreboardContainer>
+        <ScoreboardTitle>SCOREBOARD</ScoreboardTitle>
+        {scoreBoardStats.map((stat: any) => {
+          return (
+            <FlexWrap>
+              <StatTitle>{stat.title}</StatTitle>
+              <StatValue>{stat.value}</StatValue>
+            </FlexWrap>
+          );
+        })}
+      </ScoreboardContainer>
+    </PageBase>
   );
 };
 
