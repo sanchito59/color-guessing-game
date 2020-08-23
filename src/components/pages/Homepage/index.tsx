@@ -103,14 +103,25 @@ const Homepage = () => {
     setMessage("");
   }, [generateRandomColors, difficulty]);
 
+  const setupLocalStorage = () => {
+    let gamesWon: string[] = [];
+    if (localStorage.getItem("gamesWon") != null) {
+      gamesWon = localStorage.getItem("gamesWon")?.split(",")!;
+    }
+    localStorage.setItem("gamesWon", gamesWon.toString());
+
+    let averageDifficulty: string[] = [];
+    if (localStorage.getItem("averageDifficulty") != null) {
+      averageDifficulty = localStorage
+        .getItem("averageDifficulty")
+        ?.split(",")!;
+    }
+    localStorage.setItem("averageDifficulty", averageDifficulty.toString());
+  };
+
   const init = useCallback(() => {
     setGameColors(generateRandomColors(difficulty));
-    let existing: string[] = [];
-
-    if (localStorage.getItem("gamesWon") != null) {
-      existing = localStorage.getItem("gamesWon")?.split(",")!;
-    }
-    localStorage.setItem("gamesWon", existing.toString());
+    setupLocalStorage();
   }, [generateRandomColors, difficulty]);
 
   useEffect(() => {

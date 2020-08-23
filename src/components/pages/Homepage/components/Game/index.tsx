@@ -15,6 +15,7 @@ type Props = {
 
 const GameSection = styled.section`
   padding: 64px 0px;
+  padding-bottom: 120px;
   display: flex;
   justify-content: center;
   background: rgb(22, 20, 68);
@@ -26,6 +27,7 @@ const GameSection = styled.section`
 
   @media (max-width: 767px) {
     padding: 32px 0px;
+    padding-bottom: 80px;
   }
 `;
 
@@ -59,13 +61,26 @@ const Game: React.FC<Props> = ({
       handleMessage("CORRECT!");
       handleButtonMessage("PLAY AGAIN?");
 
-      let existing: string[] = [];
+      let gamesWonArr: string[] = [];
 
       if (localStorage.getItem("gamesWon") != null) {
-        existing = localStorage.getItem("gamesWon")?.split(",")!;
-        existing.push("1");
+        gamesWonArr = localStorage.getItem("gamesWon")?.split(",")!;
+        gamesWonArr.push("1");
       }
-      localStorage.setItem("gamesWon", existing.toString());
+      localStorage.setItem("gamesWon", gamesWonArr.toString());
+
+      let averageDifficultyArr: string[] = [];
+
+      if (localStorage.getItem("averageDifficulty") != null) {
+        averageDifficultyArr = localStorage
+          .getItem("averageDifficulty")
+          ?.split(",")!;
+        averageDifficultyArr.push(difficulty.toString());
+      }
+      localStorage.setItem(
+        "averageDifficulty",
+        averageDifficultyArr.toString()
+      );
 
       return "visible";
     } else {
