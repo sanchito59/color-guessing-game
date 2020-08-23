@@ -136,7 +136,7 @@ const Scoreboard = ({ correct }: Props) => {
 
   useEffect(() => {
     init();
-  }, []);
+  });
 
   const difficultyMap = useMemo(() => {
     if (averageDifficulty === "3") {
@@ -146,7 +146,7 @@ const Scoreboard = ({ correct }: Props) => {
     } else if (averageDifficulty === "9") {
       return "Hard";
     }
-  }, [correct, init]);
+  }, [averageDifficulty]);
 
   const scoreBoardStats: object[] = [
     {
