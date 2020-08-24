@@ -25,7 +25,7 @@ const ScoreboardContainer = styled.div`
   margin-bottom: 100px;
   width: 60%;
 
-  @media (max-height: 600px) {
+  @media (max-width: 768px) {
     width: 80%;
   }
 `;
@@ -63,9 +63,9 @@ const StatTitle = styled.p`
   padding-left: 20px;
   padding-bottom: 12px;
   border-bottom: 4px solid black;
-  @media (max-height: 600px) {
-    font-size: 20px;
+  @media (max-width: 768px) {
     font-weight: 600;
+    font-size: 24px;
   }
 `;
 
@@ -77,9 +77,9 @@ const StatValue = styled.p`
   text-align: center;
   border-left: 4px solid black;
   border-bottom: 4px solid black;
-  @media (max-height: 600px) {
-    font-size: 20px;
+  @media (max-width: 768px) {
     font-weight: 600;
+    font-size: 24px;
   }
 `;
 
